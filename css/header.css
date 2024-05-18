@@ -1,0 +1,49 @@
+header {
+    background-color: var(--bg-2);
+
+    height: 40px;
+    
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+
+nav {
+    display: flex;
+
+    padding: 0 32px;
+
+    height: 100%;
+}
+
+.navigation-list {
+    display: flex;
+    list-style: none;
+    
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-list a {
+
+    display: flex;
+    align-items: center;
+
+    color: var(--black);
+
+    font-size: 14px;
+
+    padding: 0 16px;
+
+    height: 100%;
+}
+
+.navigation-list a:hover {
+    background-color: var(--bg);
+}
+
+.navigation-list a svg {
+    margin-right: 8px;
+}
+
+.navigation-link_current {
+    background-color: var(--bg);
+}

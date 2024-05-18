@@ -1,0 +1,57 @@
+.resume {
+    display: flex;
+}
+
+.posts, .personal {
+    box-shadow: var(--block-shadow);
+}
+
+.posts {
+    max-width: 80%;
+    width: 100vw;
+    height: 500px;
+
+    margin-right: 32px;
+
+    background-color: var(--white);
+}
+
+.personal {
+    max-width: 20%;
+    width: 100vw;
+    height: fit-content;
+
+    background-color: var(--white);
+}
+
+.main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 32px 50px;
+}
+
+.main-info .avatar {
+    border-radius: 50%;
+
+    margin-bottom: 16px;
+}
+
+.main-info .name {
+    font-size: 18px;
+    color: var(--black);
+
+    margin-bottom: 8px;
+}
+
+.main-info .skill {
+    font-size: 14px;
+    color: var(--second-tx);
+
+    margin-bottom: 16px;
+}
+
+.main-info .contacts a:nth-child(2n) {
+    margin: 0 8px;
+}
