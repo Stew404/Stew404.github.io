@@ -38,8 +38,42 @@ async function renderPage(url){
 
         rewriteLinksDefault()
         setCurrentLinkStyle();
+
+        document.dispatchEvent(new CustomEvent("pagerendered", {
+            detail: {
+                url: url
+            }
+        }))
     }
 }
+
+document.addEventListener("pagerendered", (e)=>{
+    const pageId = new URL(e.detail.url).pathname.slice(1, -5)
+
+    if(pageId === "timer"){
+        const renderCurrentTime = createCurrentTime();
+        renderCurrentTime()
+    }
+})
+
+function handleTimerUpdate() {
+
+    let renderCurrentTime;
+
+    document.addEventListener("timerupdated", ()=>{
+        const pageId = location.pathname.slice(1, -5)
+    
+        if(pageId === "timer"){
+            renderCurrentTime = renderCurrentTime ? renderCurrentTime : createCurrentTime();
+            renderCurrentTime()
+        } else {
+            renderCurrentTime = null;
+        }
+    })
+}
+
+handleTimerUpdate();
+
 
 
 function createCurrentTime(){
@@ -60,18 +94,12 @@ function createCurrentTime(){
 
 
 const renderCurrentTime = createCurrentTime();
-
 function startTimer() {
     let time = 0
-
     setInterval(()=>{
         sessionStorage.setItem("time", ++time)
 
-        if(document.querySelector(".timer")){
-            renderCurrentTime()
-        }
-
-        console.log(sessionStorage.getItem("time"))
+        document.dispatchEvent(new CustomEvent("timerupdated"))
     }, 1000)
 }
 
