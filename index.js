@@ -1,6 +1,8 @@
 function setCurrentLinkStyle(){
     const linkId = location.pathname.slice(1, -5)
 
+    console.log(linkId)
+
     const linkElem = document.querySelector(`.navigation-list a#${linkId}`);
     
     linkElem.classList.add("navigation-link_current");
@@ -18,7 +20,29 @@ function rewriteLinksDefault(){
     });
 }
 
-window.addEventListener("DOMContentLoaded", rewriteLinksDefault)
+function initMap(){
+    ymaps.ready(init);
+    
+    function init(){
+
+        document.querySelector(".map").innerHTML = ""
+        let map = new ymaps.Map(document.querySelector(".map"), {
+            center: [59.932031, 30.355628],
+            // Уровень масштабирования. Допустимые значения:
+            // от 0 (весь мир) до 19.
+            zoom: 15
+        });
+    }
+}
+
+window.addEventListener("DOMContentLoaded", ()=>{
+    rewriteLinksDefault()
+
+    const pageId = location.pathname.slice(1, -5)
+    if(pageId === "map"){
+        initMap()
+    }
+})
 
 
 async function renderPage(url){
@@ -33,7 +57,6 @@ async function renderPage(url){
 
         history.pushState({}, "", url)
         
-        document.querySelector("head").innerHTML = html.head.innerHTML
         document.querySelector("body").outerHTML = html.querySelector("body").outerHTML
 
         rewriteLinksDefault()
@@ -47,12 +70,16 @@ async function renderPage(url){
     }
 }
 
-document.addEventListener("pagerendered", (e)=>{
+document.addEventListener("pagerendered", async (e)=>{
     const pageId = new URL(e.detail.url).pathname.slice(1, -5)
 
     if(pageId === "timer"){
         const renderCurrentTime = createCurrentTime();
         renderCurrentTime()
+    }
+
+    if(pageId === "map"){
+        initMap()
     }
 })
 
