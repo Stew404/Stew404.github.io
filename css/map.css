@@ -1,0 +1,40 @@
+.map-block {
+    background-color: var(--white);
+    box-shadow: var(--block-shadow);
+
+    padding: 18px 32px;
+}
+
+@media (max-width: 480px) {
+    .map-block {
+        padding: 18px 16px;
+    }
+}
+
+.map {
+    max-width: 100%;
+    width: 100vw;
+    height: 500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.map svg {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-delay: 0ms;
+    animation-timing-function: linear;
+}

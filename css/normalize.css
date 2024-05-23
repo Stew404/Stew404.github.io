@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Roboto", Helvetica, sans-serif;
+    background-color: var(--bg);
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
+main {
+    padding: 32px;
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 16px;
+    }
+}
