@@ -1,8 +1,6 @@
 function setCurrentLinkStyle(){
     const linkId = location.pathname.slice(1, -5)
 
-    console.log(linkId)
-
     const linkElem = document.querySelector(`.navigation-list a#${linkId}`);
     
     linkElem.classList.add("navigation-link_current");
@@ -20,6 +18,17 @@ function rewriteLinksDefault(){
     });
 }
 
+
+
+function startTimer() {
+    let time = 0
+    setInterval(()=>{
+        sessionStorage.setItem("time", ++time)
+
+        document.dispatchEvent(new CustomEvent("timerupdated"))
+    }, 1000)
+}
+
 function initMap(){
     ymaps.ready(init);
     
@@ -28,15 +37,15 @@ function initMap(){
         document.querySelector(".map").innerHTML = ""
         let map = new ymaps.Map(document.querySelector(".map"), {
             center: [59.932031, 30.355628],
-            // Уровень масштабирования. Допустимые значения:
-            // от 0 (весь мир) до 19.
             zoom: 15
         });
     }
 }
 
 window.addEventListener("DOMContentLoaded", ()=>{
+    setCurrentLinkStyle()
     rewriteLinksDefault()
+    startTimer()
 
     const pageId = location.pathname.slice(1, -5)
     if(pageId === "map"){
@@ -60,8 +69,7 @@ async function renderPage(url){
         document.querySelector("body").outerHTML = html.querySelector("body").outerHTML
 
         rewriteLinksDefault()
-        setCurrentLinkStyle();
-
+        
         document.dispatchEvent(new CustomEvent("pagerendered", {
             detail: {
                 url: url
@@ -72,6 +80,7 @@ async function renderPage(url){
 
 document.addEventListener("pagerendered", async (e)=>{
     const pageId = new URL(e.detail.url).pathname.slice(1, -5)
+    setCurrentLinkStyle();
 
     if(pageId === "timer"){
         const renderCurrentTime = createCurrentTime();
@@ -104,9 +113,9 @@ handleTimerUpdate();
 
 
 function createCurrentTime(){
-    const hoursElem = document.querySelector(".timer .hours")
-    const minutesElem = document.querySelector(".timer .minutes")
-    const secondsElem = document.querySelector(".timer .seconds")
+    const hoursElem = document.querySelector(".timer-block .hours")
+    const minutesElem = document.querySelector(".timer-block .minutes")
+    const secondsElem = document.querySelector(".timer-block .seconds")
 
     return ()=>{
         const time = sessionStorage.getItem("time")
@@ -120,15 +129,4 @@ function createCurrentTime(){
 }
 
 
-const renderCurrentTime = createCurrentTime();
-function startTimer() {
-    let time = 0
-    setInterval(()=>{
-        sessionStorage.setItem("time", ++time)
-
-        document.dispatchEvent(new CustomEvent("timerupdated"))
-    }, 1000)
-}
-
-startTimer();
 

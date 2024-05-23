@@ -21,3 +21,9 @@ a {
 main {
     padding: 32px;
 }
+
+@media (max-width: 480px) {
+    main {
+        padding: 16px;
+    }
+}

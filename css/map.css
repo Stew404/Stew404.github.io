@@ -1,3 +1,16 @@
+.map-block {
+    background-color: var(--white);
+    box-shadow: var(--block-shadow);
+
+    padding: 18px 32px;
+}
+
+@media (max-width: 480px) {
+    .map-block {
+        padding: 18px 16px;
+    }
+}
+
 .map {
     max-width: 100%;
     width: 100vw;
